@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+
+# Runtime secrets/session files
+.env
+*.session
+*.session-*
+cookies*.txt
+
+# Runtime downloads
+MAYANK_DROID_Downloads/
+*.log
+
+# Generated archive
+MAYANK_DROID_Instaloader.zip

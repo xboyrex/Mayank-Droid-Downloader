@@ -1,0 +1,4 @@
+# Web UI runtime
+Flask>=3.1,<4
+requests>=2.25
+# Instaloader source is bundled locally in ./instaloader.

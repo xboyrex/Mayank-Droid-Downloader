@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" role="img" aria-labelledby="title desc">
+  <title id="title">MAYANK DROID</title><desc id="desc">MAYANK DROID logo</desc>
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00c6ff"/><stop offset="100%" stop-color="#0072ff"/></linearGradient></defs>
+  <rect x="12" y="22" width="136" height="136" rx="32" fill="url(#g)"/>
+  <path d="M48 78h64v54H48z" fill="#fff" opacity=".96"/><path d="M42 78l38-32 38 32" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="174" y="91" font-family="Inter,Segoe UI,sans-serif" font-size="64" font-weight="800" fill="#fff">MAYANK</text>
+  <text x="177" y="136" font-family="Inter,Segoe UI,sans-serif" font-size="34" font-weight="700" letter-spacing="8" fill="#9aa7b7">DROID</text>
+</svg>

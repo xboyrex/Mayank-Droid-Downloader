@@ -1,0 +1,43 @@
+name: Build MAYANK DROID ZIP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate Python sources
+        run: python -m compileall -q app.py build_zip.py instaloader
+
+      - name: Build ZIP
+        run: python build_zip.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MAYANK_DROID_Instaloader
+          path: MAYANK_DROID_Instaloader.zip
+          if-no-files-found: error
+
+      - name: Create release
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: instaloader-${{ github.run_number }}
+          name: MAYANK DROID Instaloader ${{ github.run_number }}
+          generate_release_notes: true
+          files: MAYANK_DROID_Instaloader.zip
