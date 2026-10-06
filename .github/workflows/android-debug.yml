@@ -1,48 +1,56 @@
-name: Mayank Droid Android Debug APK
+name: Build Debug APK
 
 on:
   push:
     branches:
       - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  build-debug:
+  build:
     name: Build Debug APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
+          cache: gradle
 
-      - name: Set up Android SDK
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          log-accepted-android-sdk-licenses: false
 
-      - name: Accept Android SDK licenses
-        run: yes | sdkmanager --licenses >/dev/null || true
-
-      - name: Install Android SDK components
+      - name: Install Android SDK packages
         run: |
           sdkmanager "platform-tools"
           sdkmanager "platforms;android-35"
           sdkmanager "build-tools;35.0.0"
 
-      - name: Make Gradle executable
+      - name: Grant execute permission for Gradle
         run: chmod +x ./gradlew
 
-      - name: Build Debug APK
-        run: ./gradlew :app:assembleDebug --stacktrace
+      - name: Verify Gradle
+        run: ./gradlew --version
 
-      - name: Verify Debug APK
+      - name: Build Debug APK
+        run: ./gradlew :app:assembleDebug --stacktrace --no-daemon
+
+      - name: Verify APK
         run: |
           test -f app/build/outputs/apk/debug/app-debug.apk
           ls -lh app/build/outputs/apk/debug/app-debug.apk
@@ -50,7 +58,7 @@ jobs:
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: Mayank-Droid-Debug-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: mayank-droid-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
